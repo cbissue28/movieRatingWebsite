@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchRatedMovies, fetchRatedTvSeries } from "./query";
 import { ColumnDisplay } from "../home/column-display";
+import { Navigate } from "react-router-dom";
 
 export const Rated = () => {
     const [activeTabs, setActiveTabs] = useState<DisplayType>(DisplayType.Movies);
@@ -21,6 +22,10 @@ export const Rated = () => {
     if (isLoadingRatedMovies || isLoadingRatedTvSeries) {
         return <Loader active />;
     }
+
+    if (localStorage.getItem("guest_session_id") === null) {
+        return <Navigate to="/auth" />;
+     }
     
     return(
         <Container style={{ marginTop: 50 }}>
