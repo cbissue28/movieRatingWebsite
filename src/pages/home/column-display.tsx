@@ -1,11 +1,12 @@
-import { Card, Form, Grid, Label } from "semantic-ui-react";
+import { Button, Card, Form, Grid, Label } from "semantic-ui-react";
 import { DisplayType } from ".";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { rateMovie, rateTvSeries } from "./mutation";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { deleteMovieRating, deleteTvSeriesRating } from "./deleteQuery";
 
 interface DisplayData {
     id: number;
@@ -29,10 +30,13 @@ export const ColumnDisplay = (props: Props) => {
     const [rating, setRating] = useState<number>(0)
 
     const onSuccess = () => {
-        toast.success("Successfully Rated", 
-        {autoClose: 2000,
-        });
-    };
+        if (window.location.pathname === "/personalratings") {
+          window.location.reload();
+        } else {
+          toast.success("Rating successful", { autoClose: 2000 });
+        }
+      };
+
 
     const onError = () => {
         toast.success("Something went wrong")
@@ -48,10 +52,29 @@ export const ColumnDisplay = (props: Props) => {
     const {mutate: rateTvSeriesMutation} = useMutation({
         mutationKey: ["rateTvSeries"],
         mutationFn: (id: number) => rateTvSeries(id, rating),
+        onSuccess,
+        onError,
+    });
+
+    const {mutate: deleteMovieRatingMutation} = useMutation({
+        mutationKey: ["deleteMovieRating"],
+        mutationFn: (id: number) => deleteMovieRating(id),
+        onSuccess,
+        onError,
+    });
+
+    const {mutate: deleteTvSeriesRatingMutation} = useMutation({
+        mutationKey: ["deleteTvSeriesRating"],
+        mutationFn: (id: number) => deleteTvSeriesRating(id),
+        onSuccess,
+        onError,
     });
 
     const rate =
     displayType === DisplayType.Movies ? rateMovieMutation : rateTvSeriesMutation
+
+    const deleteRating =
+    displayType === DisplayType.Movies ? deleteMovieRatingMutation : deleteTvSeriesRatingMutation
 
 
 
@@ -65,7 +88,7 @@ export const ColumnDisplay = (props: Props) => {
         padded="vertically">
             {data.map((displayData: DisplayData) => (
                 <Grid.Column key={displayData.id}>
-                    <Card.Group>
+                    <Card.Group style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <Link to={`/${displayType === DisplayType.Movies ? "movie" : "tvseries"}/${displayData.id}`}>  
                        
                         <Card
@@ -77,10 +100,9 @@ export const ColumnDisplay = (props: Props) => {
                             ? displayData.title
                             : displayData.name
                         }
-                        meta={`Release Date: ${displayData.release_date} | Rating: ${displayData.vote_average}`}
+                        meta={`Release Date: ${displayData.release_date} | Rating: ${displayData.vote_average.toFixed(2)}`}
                         description={displayData.overview.slice(0, 350) + "..."}
                         />{" "}
-                        {isRated && <Label color="green"> Your Personal Rating : {displayData.rating}</Label>}
                         </Link>
                         <Form style={{marginTop: 10}}>
                             <Form.Group inline>
@@ -92,9 +114,9 @@ export const ColumnDisplay = (props: Props) => {
                                     step="0.5"
                                     onChange={(e) => setRating(Number(e.target.value))}
                                     action={{
-                                        color: "violet",
+                                        color: "blue",
                                         labelPosition: "right",
-                                        icon: "star",
+                                        icon: "archive",
                                         content: "Rate",
                                         onClick: () => rate(displayData.id),
                                     }} />
@@ -103,6 +125,21 @@ export const ColumnDisplay = (props: Props) => {
 
                             </Form.Group>
                         </Form>
+                        {isRated && (
+                        <div style={{ textAlign: 'center' }}>
+                           <div>
+                           <Label color="grey" style={{ fontSize: '1em', marginBottom: 10 }}>
+                           Your Personal Rating: {displayData.rating}
+                           </Label>
+                           </div>
+                           <Button animated color="red" onClick={() => deleteRating(displayData.id)}>
+                              <Button.Content visible>Delete Rating</Button.Content>
+                              <Button.Content hidden>
+                              <i className="times icon"></i>
+                              </Button.Content>
+                           </Button>
+                        </div>
+                        )}
                     </Card.Group>
                 </Grid.Column>
             ))}

@@ -11,15 +11,15 @@ export const Navbar = () => {
         localStorage.removeItem("guest_session_id") !== null;
         navigate("/auth")
     };
-    
+
     return (
         <Menu fixed="top" size="huge">
              <Menu.Item as={Link} to="/" style={{fontsize: "1.5rem"}}> 
              Home 
              </Menu.Item>
 
-                <Menu.Item as={Link} to="/rated" style={{fontsize: "1.5rem"}}> 
-                Rated 
+                <Menu.Item as={Link} to="/personalratings" style={{fontsize: "1.5rem"}}> 
+                Personal Ratings
                 </Menu.Item>
 
              <Menu.Menu position="right">
@@ -28,7 +28,7 @@ export const Navbar = () => {
                  Logout 
                  </Menu.Item>
                 ): (
-                <Menu.Item as={Link} to="/Auth" style={{fontsize: "1.5rem"}}> Auth </Menu.Item>
+                <Menu.Item as={Link} to="/Auth" style={{fontsize: "1.5rem"}}> Login </Menu.Item>
               )}
             </Menu.Menu>
 

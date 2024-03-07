@@ -19,12 +19,12 @@ export const Auth = () => {
     return (
         <Grid textAlign="center" verticalAlign="middle" style={{ height: "100vh" }}>
             <Grid.Column style={{ maxWidth: 450 }}>
-                <Header as="h2" color="violet" textAlign="center">
+                <Header as="h2" color="blue" textAlign="center">
                     Welcome! login by registering as a Guest below.
                 </Header>
                 <Form size="large">
                     <Segment stacked>
-                        <Button color="violet" size="large" fluid onClick={handleLogin}>
+                        <Button color="blue" size="large" fluid onClick={handleLogin}>
                             Login
                         </Button>
                     </Segment>

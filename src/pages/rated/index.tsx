@@ -25,45 +25,53 @@ export const Rated = () => {
 
     if (localStorage.getItem("guest_session_id") === null) {
         return <Navigate to="/auth" />;
-     }
-    
-    return(
-        <Container style={{ marginTop: 50 }}>
+    }
+
+    return (
+        <Container style={{ marginTop: 80 }}>
             {" "}
             <Menu pointing secondary>
-                <Menu.Item name="Movies" active={activeTabs === DisplayType.Movies}
-                onClick={() => setActiveTabs(DisplayType.Movies)}
-            />
-            <Menu.Item name="TV Series" active={activeTabs === DisplayType.TvSeries}
-                onClick={() => setActiveTabs(DisplayType.TvSeries)}
-            />
+                <Menu.Item name="Movies" style={{ color: 'white' }} active={activeTabs === DisplayType.Movies}
+                    onClick={() => setActiveTabs(DisplayType.Movies)}
+                />
+                <Menu.Item name="TV Series" style={{ color: 'white' }} active={activeTabs === DisplayType.TvSeries}
+                    onClick={() => setActiveTabs(DisplayType.TvSeries)}
+                />
             </Menu>
 
             <Segment>
-                {activeTabs === DisplayType.Movies ? ( 
-                <div>
-                    <Header as={"h2"}>
-                        Rated Movies
-                    </Header>
-                    <ColumnDisplay 
-                    data={ratedMovies.results}
-                    displayType={DisplayType.Movies}
-                    isRated
-                    />
-                </div> 
+                {activeTabs === DisplayType.Movies ? (
+                    <div>
+                        <Header as={"h2"} style={{ color: 'white' }}>
+                            Rated Movies
+                        </Header>
+                        {ratedMovies && ratedMovies.results && ratedMovies.results.length > 0 ? (
+                            <ColumnDisplay
+                                data={ratedMovies.results}
+                                displayType={DisplayType.Movies}
+                                isRated
+                            />
+                        ) : (
+                            <Header as={"h1"} style={{ color: 'teal', marginTop: 230 }}>You currently have no rated Movies</Header>
+                        )}
+                    </div>
                 ) : (
                     <div>
-                    <Header as={"h2"}>
-                        Rated Tv Series
-                    </Header>
-                    <ColumnDisplay 
-                    data={ratedTvSeries.results}
-                    displayType={DisplayType.TvSeries}
-                    isRated
-                    />
-                </div> 
-                    )}
+                        <Header as={"h2"} style={{ color: 'white' }}>
+                            Rated Tv Series
+                        </Header>
+                        {ratedTvSeries && ratedTvSeries.results && ratedTvSeries.results.length > 0 ? (
+                            <ColumnDisplay
+                                data={ratedTvSeries.results}
+                                displayType={DisplayType.TvSeries}
+                                isRated
+                            />
+                        ) : (
+                            <Header as={"h1"} style={{ color: 'teal', marginTop: 230 }}>You currently have no rated Tv Series</Header>
+                        )}
+                    </div>
+                )}
             </Segment>
         </Container>
-    )
-}
+    );
+};
