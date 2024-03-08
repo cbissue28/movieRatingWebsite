@@ -4,26 +4,28 @@ import { mutationLogin } from "./mutation";
 import { useNavigate } from "react-router-dom";
 
 export const Auth = () => {
-    const { data, mutate } = useMutation({ mutationKey: ["login"], 
-    mutationFn: mutationLogin 
+    const { mutate } = useMutation({ mutationKey: ["login"], 
+    mutationFn: mutationLogin,
+    onSuccess: (data) => {
+        localStorage.setItem("guest_session_id", data.guest_session_id);
+        navigate("/");
+    }
 });
     
     const navigate = useNavigate();
 
     const handleLogin = async () => {
-    await mutate();
-    localStorage.setItem("guest_session_id", data.guest_session_id);
-    navigate("/");
+    mutate();
 };
     
     return (
         <Grid textAlign="center" verticalAlign="middle" style={{ height: "100vh" }}>
             <Grid.Column style={{ maxWidth: 450 }}>
-                <Header as="h2" color="blue" textAlign="center">
+                <Header as="h2" color="teal" textAlign="center">
                     Welcome! login by registering as a Guest below.
                 </Header>
                 <Form size="large">
-                    <Segment stacked>
+                    <Segment stacked id="authScreen">
                         <Button color="blue" size="large" fluid onClick={handleLogin}>
                             Login
                         </Button>

@@ -2,10 +2,13 @@ body {
   background-color: #1b2845 !important;
 }
 
-.ui.segment{
-  background-color: #1b2845 !important;
+#ratedScreen {
+  background-color: #1b2845;
 }
 
+#authScreen {
+  background-color: #1b2845;
+}
 
 #root {
   max-width: 1280px;

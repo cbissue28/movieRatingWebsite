@@ -39,7 +39,7 @@ export const Rated = () => {
                 />
             </Menu>
 
-            <Segment>
+            <Segment id="ratedScreen">
                 {activeTabs === DisplayType.Movies ? (
                     <div>
                         <Header as={"h2"} style={{ color: 'white' }}>
