@@ -22,7 +22,7 @@ export const TvSeries = () => {
     return ( 
     <div style={{ marginTop: 50 }}>
         <Segment>
-            <Header as={"h1"}> {data.name} </Header>
+            <Header as={"h1"} style={{ color: "white" }}> {data.name} </Header>
             <Grid columns={2} divided textAlign="left" style={{marginTop: 20 }}>                
             <Grid.Row>
                 <Grid.Column width={6}>
@@ -40,49 +40,56 @@ export const TvSeries = () => {
                         </div>
                 </Grid.Column>  
                 <Grid.Column width={10}>
-                    <List>
-                        <List.Item>
-                            <List.Header> Created By: </List.Header>
+                    <List style={{ color: "white" }}>
+                        <List.Item style={{ marginBottom: 10 }}>
+                            <List.Header style={{ color: "white" }}> Created By: </List.Header>
                             {data.created_by 
                              .map((creator: any)=> creator.name)
                              .join(", ")}
                         </List.Item>
-                        <List.Item>
-                            <List.Header> Number of Episodes: </List.Header>
+                        <List.Item style={{ marginBottom: 10 }}>
+                            <List.Header style={{ color: "white" }}> Number of Episodes: </List.Header>
                             {data.number_of_episodes}
                         </List.Item>
-                        <List.Item>
-                            <List.Header> Number of Seasons: </List.Header>
+                        <List.Item style={{ marginBottom: 10 }}>
+                            <List.Header style={{ color: "white" }}> Number of Seasons: </List.Header>
                             {data.number_of_seasons}
                         </List.Item>
-                        <List.Item>
-                            <List.Header> Genres: </List.Header>
+                        <List.Item style={{ marginBottom: 10 }}>
+                            <List.Header style={{ color: "white", marginBottom: 10 }}> Genres: </List.Header>
                             {data.genres.map((genre: any) => (
                                 <Label key={genre.id}> {genre.name} </Label>
                             ))}
                         </List.Item>
-                        <List.Item>
-                            <List.Header> First Aired: </List.Header>
+                        <List.Item style={{ marginBottom: 10 }}>
+                            <List.Header style={{ color: "white" }}> First Aired: </List.Header>
                             {data.first_air_date}
                         </List.Item>
-                        <List.Item>
-                            <List.Header> Vote Average: </List.Header>
+                        <List.Item style={{ marginBottom: 10 }}>
+                            <List.Header style={{ color: "white" }}> Ongoing?: </List.Header>
+                            {data.in_production ? "Yes" : "No"}
+                        </List.Item>
+                        <List.Item style={{ marginBottom: 10 }}>
+                            <List.Header style={{ color: "white" }}> Vote Average: </List.Header>
                             {data.vote_average}
                         </List.Item>
-                        <List.Item>
-                            <List.Header> Original Language: </List.Header>
-                            {data.original_language}
+                        <List.Item style={{ marginBottom: 10 }}>
+                            <List.Header style={{ color: "white" }}> Original Language: </List.Header>
+                            {data.original_language.toUpperCase()}
                         </List.Item>
                         <List.Item>
-                            <List.Header> Networks: </List.Header>
-                            {data.networks.map((network: any) => (
-                            <Image 
-                            Key={network.id} 
-                            src={`https://image.tmdb.org/t/p/original/${network.logo_path}`}
-                            size="small" 
-                            style={{ marginRight: 10 }} 
-                            />))}
-                        </List.Item>
+                            <List.Header style={{ color: "white", marginBottom: 15 }}> Networks: </List.Header>
+                            {data.networks
+                              .filter((network: any) => network.logo_path !== null)
+                              .map((network: any) => (
+                                <Image
+                                  key={network.id}
+                                  src={`https://image.tmdb.org/t/p/original/${network.logo_path}`}
+                                  size="small"
+                                  style={{ marginRight: 10 }}
+                                />
+                              ))}
+                          </List.Item>
                     </List>
                 </Grid.Column>    
             </Grid.Row>
