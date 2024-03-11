@@ -5,9 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 // Auth component for user authentication.
 
-// Access the navigation function from the React Router.
-const navigate = useNavigate();
-
 export const Auth = () => {
     // Use mutation to handle the login process.
     const { mutate } = useMutation({ mutationKey: ["login"], 
@@ -21,6 +18,9 @@ export const Auth = () => {
         navigate("/");
     }
 }); 
+    // Access the navigation function from the React Router.
+    const navigate = useNavigate();
+
     //Handle login function, triggers the login mutation.
     const handleLogin = async () => {
     // Call the login mutation.

@@ -139,7 +139,7 @@ export const ColumnDisplay = (props: Props) => {
 
                             </Form.Group>
                         </Form>
-                        {/* Displays a rating and delete rating button only if the movie/show has been rated. */}
+                        {/* Displays a rating and delete rating button only if the movie/TV series has been rated. */}
                         {isRated && (
                         <div style={{ textAlign: 'center' }}>
                            <div>

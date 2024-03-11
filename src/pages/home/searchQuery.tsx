@@ -1,5 +1,5 @@
 /**
- * Both functions search for a movie/show based on the provided query.
+ * Both functions search for a movie/Tv series based on the provided query.
  * Returns a JSON representation of the response.
  */
 export const searchMovie = async (query: string) => {

@@ -1,5 +1,5 @@
 /**
- * Both functions delete the user's rating for a specific movie/show.
+ * Both functions delete the user's rating for a specific movie/Tv series.
  * The parameter movieID is the unique identifier of the movie.
  * Returns a JSON representation of the response.
  */

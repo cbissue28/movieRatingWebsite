@@ -1,5 +1,5 @@
 /**
-* Both functions fetch the movies or shows to be displayed on the homepage.
+* Both functions fetch the movies or tv series to be displayed on the homepage.
 * The parameter movieID is the unique identifier of the movie.
 * Returns a JSON representation of the response.
 */
