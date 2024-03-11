@@ -3,21 +3,29 @@ import { useMutation } from "@tanstack/react-query";
 import { mutationLogin } from "./mutation";
 import { useNavigate } from "react-router-dom";
 
+// Auth component for user authentication.
+
+// Access the navigation function from the React Router.
+const navigate = useNavigate();
+
 export const Auth = () => {
+    // Use mutation to handle the login process.
     const { mutate } = useMutation({ mutationKey: ["login"], 
     mutationFn: mutationLogin,
+
+    //onSuccess callback executed when mutationLogin function successfully returns data.     
     onSuccess: (data) => {
+        // Save the guest_session_id in localStorage upon successful login.
         localStorage.setItem("guest_session_id", data.guest_session_id);
+        // Navigate to the home page after successful login.
         navigate("/");
     }
-});
-    
-    const navigate = useNavigate();
-
+}); 
+    //Handle login function, triggers the login mutation.
     const handleLogin = async () => {
+    // Call the login mutation.
     mutate();
 };
-    
     return (
         <Grid textAlign="center" verticalAlign="middle" style={{ height: "100vh" }}>
             <Grid.Column style={{ maxWidth: 450 }}>
@@ -26,6 +34,7 @@ export const Auth = () => {
                 </Header>
                 <Form size="large">
                     <Segment stacked id="authScreen">
+                        {/* Button to trigger the login process. */}
                         <Button color="blue" size="large" fluid onClick={handleLogin}>
                             Login
                         </Button>

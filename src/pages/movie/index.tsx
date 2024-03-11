@@ -3,23 +3,28 @@ import { Grid, Header, Loader, Segment, Image, List, Label } from "semantic-ui-r
 import { fetchMovieDetails } from "./query";
 import { useQuery } from "@tanstack/react-query";
 
-
+//React component to display detailed information about a specific movie.
 export const Movie = () => {
+    // Retrieve the movie ID from the URL parameters
     const { id } = useParams<string>();
-
+    
+    // If no movie ID is available, display an error message
     if (!id) {
         return <div>Invalid Movie ID</div>
     }
-
+    
+    // UseQuery hook to fetch movie details based on the movie ID
     const { data, isLoading } = useQuery({
         queryKey: ["movie"],
         queryFn: () => fetchMovieDetails(id),
     });
 
+    // If the data is still loading, display a loader
     if (isLoading) {
         return <Loader active />
     }
 
+    // Render the movie details
     return ( 
     <div style={{ marginTop: 50 }}>
         <Segment>
@@ -69,6 +74,7 @@ export const Movie = () => {
                             {data.original_language.toUpperCase()}
                         </List.Item>
                         <List.Item>
+                            {/* Production Comapnies section checks if the company logo is not null before displaying */}
                            <List.Header style={{ color: "white", marginBottom: 15 }}> Production Company: </List.Header>
                            {data.production_companies.filter((company: any) => company.logo_path !== null)
                            .map((production_company: any) => (

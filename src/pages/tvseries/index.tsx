@@ -3,22 +3,28 @@ import { Grid, Header, Loader, Segment, Image, List, Label } from "semantic-ui-r
 import { fetchTvSeriesDetails } from "./query";
 import { useQuery } from "@tanstack/react-query";
 
+// React component to display details of a TV series 
 export const TvSeries = () => {
+    // Extracts the TV series ID from the URL parameters
     const { id } = useParams<string>();
 
+    // Redirects to an error message if the TV series ID is not provided
     if (!id) {
         return <div>Invalid Tv Series ID</div>
     }
-
+    
+    // UseQuery hook to fetch TV series details based on the provided ID
     const { data, isLoading } = useQuery({
         queryKey: ["tvSeries"],
         queryFn: () => fetchTvSeriesDetails(id),
     });
-
+    
+    // Displays a loader while TV series details are being fetched
     if (isLoading) {
         return <Loader active />
     }
-
+    
+    // Renders the TV series details page with information about the TV series
     return ( 
     <div style={{ marginTop: 50 }}>
         <Segment>
@@ -78,6 +84,7 @@ export const TvSeries = () => {
                             {data.original_language.toUpperCase()}
                         </List.Item>
                         <List.Item>
+                            {/* Networks section checks if networks logo is not null before displaying */}
                             <List.Header style={{ color: "white", marginBottom: 15 }}> Networks: </List.Header>
                             {data.networks
                               .filter((network: any) => network.logo_path !== null)

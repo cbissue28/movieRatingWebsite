@@ -1,4 +1,7 @@
+//The function performs the login mutation by requesting a new guest session ID and returns a data object containing the guest session ID.
 export const mutationLogin = async () => {
+    
+    // Perform a fetch request to the MovieDB API to obtain a new guest session ID.
     const res = await fetch(
         "https://api.themoviedb.org/3/authentication/guest_session/new",
         {
@@ -8,6 +11,6 @@ export const mutationLogin = async () => {
             },
         }
     );
-
+    // Parse the JSON response and return the data object.
     return res.json();
 };

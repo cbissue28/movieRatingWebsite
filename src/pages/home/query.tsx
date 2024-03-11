@@ -1,3 +1,8 @@
+/**
+* Both functions fetch the movies or shows to be displayed on the homepage.
+* The parameter movieID is the unique identifier of the movie.
+* Returns a JSON representation of the response.
+*/
 export const fetchMovies = async () => {
     const res = await fetch(
         "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
