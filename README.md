@@ -1,1 +1,1 @@
-<h2>Available online: https://cbissuemovieratingapp.netlify.app/auth </h2>
+<h2>Available online: https://cbissuemovieratingapp.netlify.app </h2>
